@@ -69,6 +69,12 @@ class User extends Authenticatable implements FilamentUser
     //memiliki nama email gmail.com 
 
     public function canAccessFilament(): bool {
-        return str_ends_with($this->email, '@admin.com'  );
+        return str_ends_with($this->email, '@test.com'  );
     }
+
+    public function matriks(){
+        return $this->hasMany(Matriks::class);
+    }
+
+
 }

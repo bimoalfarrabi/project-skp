@@ -15,6 +15,7 @@ use Filament\Tables;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\Parser\Multiple;
 
 class MatriksResource extends Resource
@@ -28,14 +29,18 @@ class MatriksResource extends Resource
         return $form
             ->schema([
                 //
+                // Forms\Components\TextInput::make('user')->default(Auth::user()),
                 Forms\Components\TextInput::make('sasaran_kerja')->required(),
                 Forms\Components\Repeater::make('indikator_keberhasilans')
                 ->relationship('indikator')
                 ->schema([
                     TextInput::make('teks_indikator')->required()
                 ])
-                ->columns(2)
+                ->columns(2),
                 // Forms\Components\Select::make('sasaran_kerja')->multiple()->required(),
+                // Forms\Components\Select::make('user_id')->relationship('user', 'email')
+                // ->default('test1@test.com')
+
             ]);
     }
 
@@ -44,8 +49,9 @@ class MatriksResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make('sasaran_kerja'),
-                Tables\Columns\TextColumn::make('indikator_keberhasilans')
+                Tables\Columns\TextColumn::make('sasaran_kerja')
+                // Tables\Columns\TextColumn::make('indikator_keberhasilans'),
+                // Tables\Columns\Select::make('user_id')
             ])
             ->filters([
                 //
