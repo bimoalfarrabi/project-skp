@@ -6,6 +6,8 @@ use App\Filament\Resources\MatriksResource\Pages;
 use App\Filament\Resources\MatriksResource\RelationManagers;
 use App\Filament\Resources\MatriksResource\RelationManagers\IndikatorRelationManager;
 use App\Models\Matriks;
+use Filament\Tables\Filters\Filter;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -30,6 +32,9 @@ class MatriksResource extends Resource
             ->schema([
                 //
                 // Forms\Components\TextInput::make('user')->default(Auth::user()),
+                Select::make('sasaran_atasan')
+                ->label('Sasaran atasan')
+                ->options(Matriks::all()->pluck('sasaran_kerja', 'id' )),
                 Forms\Components\TextInput::make('sasaran_kerja')->required(),
                 Forms\Components\Repeater::make('indikator_keberhasilans')
                 ->relationship('indikator')
@@ -54,7 +59,8 @@ class MatriksResource extends Resource
                 // Tables\Columns\Select::make('user_id')
             ])
             ->filters([
-                //
+                // Filter::make('user')
+                // ->query(fn (Builder $query): Builder => $query->where('user_id', true))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -81,4 +87,9 @@ class MatriksResource extends Resource
             'edit' => Pages\EditMatriks::route('/{record}/edit'),
         ];
     }    
+
+    public static function getEloquentQuery(): Builder
+    {
+    return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
+    }
 }

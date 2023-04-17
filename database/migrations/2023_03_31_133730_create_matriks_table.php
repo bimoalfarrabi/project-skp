@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('matriks', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->foreignId('user_id');
             $table->text('sasaran_kerja');
             $table->timestamps();

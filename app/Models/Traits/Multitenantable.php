@@ -9,9 +9,9 @@
                 $model->user_id = auth()->id();
             });
 
-            static::addGlobalScope('created_by_user_id', function (Builder $builder) {
-                $builder->where('user_id', auth()->id());
-            });
+            // static::addGlobalScope('created_by_user_id', function (Builder $builder) {
+            //     $builder->where('user_id', auth()->id());
+            // });
         }
     }
 

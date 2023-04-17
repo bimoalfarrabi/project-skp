@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('indikator_keberhasilans', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('matriks_id'); 
-            $table->foreign('matriks_id')
+        Schema::create('intervensi', function (Blueprint $table) {
+            $table->unsignedInteger('intervensi_id');
+            $table->foreign('intervensi_id')
             ->references('id')
-            ->on('matriks')
-            ->constrained()
-            ->cascadeOnDelete();
-            $table->text('teks_indikator');
+            ->on('matriks');
+
+            $table->unsignedInteger('sasaran_id');
+            $table->foreign('sasaran_id')
+            ->references('id')
+            ->on('matriks');
+            
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('indikator_keberhasilans');
+        Schema::dropIfExists('intervensis');
     }
 };
