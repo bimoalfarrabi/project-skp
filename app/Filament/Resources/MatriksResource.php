@@ -32,9 +32,39 @@ class MatriksResource extends Resource
             ->schema([
                 //
                 // Forms\Components\TextInput::make('user')->default(Auth::user()),
-                Select::make('sasaran_atasan')
-                ->label('Sasaran atasan')
-                ->options(Matriks::all()->pluck('sasaran_kerja', 'id' )),
+                // ->options(Matriks::all()->pluck('sasaran_kerja', 'id'))
+                
+                Select::make('user_id')
+                ->label('Pegawai')
+                ->options(User::where('id', '!=', auth()->id())->get()->pluck('name', 'id'))->searchable(),
+                
+                // Select::make('sasaranAtasan_id')
+                // ->label('Sasaran atasan')
+                // ->options(Matriks::with('sasaranAtasan')->get()->where('user_id', '!=', auth()->id())->pluck('sasaran_kerja', 'id'))
+                // ->searchable(),
+
+                Select::make('sasaranAtasan_id')
+                ->label('Sasaran yang diintervensi')
+                ->options(function (callable $get){
+                    $user = User::find($get('user_id'));
+                    if(!$user){
+                        return null;
+                    }
+                    return $user->matriks->pluck('sasaran_kerja', 'id');
+                })
+                ->searchable(),
+                    
+
+                // Select::make('sasaran_atasan')
+                // ->label('Sasaran atasan')
+                // ->options(Matriks::where('user_id', '!=', auth()->id())->pluck('sasaran_kerja', 'id'))
+                // ->searchable(),
+                // ->getRelationship()
+                // ->relationship('matriks', 'sasaranAtasan_id')
+
+                // Select::make('')
+                // ->relationship('sasaranAtasan', 'sasaran_kerja' ),
+
                 Forms\Components\TextInput::make('sasaran_kerja')->required(),
                 Forms\Components\Repeater::make('indikator_keberhasilans')
                 ->relationship('indikator')

@@ -14,7 +14,11 @@ class Intervensi extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'intervensi_id',
-        'matriks_id',
+        'id_matriks',
+        'id_intervensi',
     ];
+
+    // public function matriks(){
+    //     return $this->hasMany(Matriks::class, 'intervensi', 'matriks_id','intervensi_id');
+    // }
 }

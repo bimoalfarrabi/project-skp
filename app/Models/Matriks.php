@@ -10,9 +10,6 @@ class Matriks extends Model
     use HasFactory;
     use Multitenantable;
     protected $guarded = ['id'];
-    protected $casts = [
-        'sasaran_atasan' => 'array'
-    ];
     public function indikator(){
         return $this->hasMany(IndikatorKeberhasilan::class);
     }
@@ -21,10 +18,20 @@ class Matriks extends Model
         return $this->belongsTo(User::class);
     }
 
+    // public function sasaranAtasan(){
+    //     return $this->belongsToMany(Matriks::class, 'intervensi', 'id_matriks', 'id_intervensi');
+    // }
+
     public function intervensi(){
-        return $this->belongsToMany(Matriks::class, 'intervensi', 'sasaran_id','intervensi_id');
+        return $this->belongsToMany(Matriks::class, 'intervensi', 'id_intervensi', 'id_matriks');
     }
-    public function sasaran_atasan(){
-        return $this->belongsToMany(Matriks::class, 'intervensi', 'intervensi_id','sasaran_id');
+
+    // public function diintervensi(){
+    //     return $this->belongsToMany(Matriks::class, 'intervensi', 'sasaranAtasan_id','matriks_id');
+    // }
+
+    public function sasaranAtasan(){
+        return $this->belongsTo(Matriks::class);
     }
+    
 }

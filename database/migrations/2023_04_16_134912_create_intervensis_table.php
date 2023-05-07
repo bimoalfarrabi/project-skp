@@ -12,17 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('intervensi', function (Blueprint $table) {
-            $table->unsignedInteger('intervensi_id');
-            $table->foreign('intervensi_id')
-            ->references('id')
-            ->on('matriks');
-
-            $table->unsignedInteger('sasaran_id');
-            $table->foreign('sasaran_id')
-            ->references('id')
-            ->on('matriks');
-            
-            $table->timestamps();
+            $table->id();
+            // $table->primary(['matriks_id','sasaranAtasan_id']);
+            // $table->unsignedBigInteger('id_matriks');
+            // $table->unsignedBigInteger('sasaranAtasan_id');
+            // $table->foreign('id_matriks')->references('id')->on('matriks')->onDelete('cascade');
+            // $table->foreign('sasaranAtasan_id')->references('id')->on('matriks')->onDelete('cascade');
+            // $table->bigInteger('id_matriks');
+            // $table->bigInteger('id_intervensi');
+            // $table->unique(['id_matriks', 'id_intervensi']);
+            // $table->timestamps();
         });
     }
 

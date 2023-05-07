@@ -19,6 +19,7 @@ return new class extends Migration
             ->on('matriks')
             ->constrained()
             ->cascadeOnDelete();
+            // $table->foreignId('matriks_id')->constrained()->cascadeOnDelete();
             $table->text('teks_indikator');
             $table->timestamps();
         });
