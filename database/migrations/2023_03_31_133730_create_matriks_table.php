@@ -14,8 +14,9 @@ return new class extends Migration
     {
         Schema::create('matriks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sasaranAtasan_id')->nullable();
             $table->foreignId('user_id');
+            $table->integer('atasan_id')->nullable();
+            $table->integer('sasaranAtasan_id')->nullable();
             $table->text('sasaran_kerja');
             $table->timestamps();
         });

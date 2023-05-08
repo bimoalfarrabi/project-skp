@@ -34,9 +34,10 @@ class MatriksResource extends Resource
                 // Forms\Components\TextInput::make('user')->default(Auth::user()),
                 // ->options(Matriks::all()->pluck('sasaran_kerja', 'id'))
                 
-                Select::make('user_id')
-                ->label('Pegawai')
-                ->options(User::where('id', '!=', auth()->id())->get()->pluck('name', 'id'))->searchable(),
+                Select::make('atasan_id')
+                ->label('pegawai (yang mempunyai sasaran untuk diintervensi)')
+                ->options(User::where('id', '!=', auth()->id())->get()->pluck('name', 'id'))
+                ->searchable(),
                 
                 // Select::make('sasaranAtasan_id')
                 // ->label('Sasaran atasan')
@@ -46,7 +47,7 @@ class MatriksResource extends Resource
                 Select::make('sasaranAtasan_id')
                 ->label('Sasaran yang diintervensi')
                 ->options(function (callable $get){
-                    $user = User::find($get('user_id'));
+                    $user = User::find($get('atasan_id'));
                     if(!$user){
                         return null;
                     }
@@ -84,9 +85,13 @@ class MatriksResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make('sasaran_kerja')
-                // Tables\Columns\TextColumn::make('indikator_keberhasilans'),
-                // Tables\Columns\Select::make('user_id')
+                Tables\Columns\TextColumn::make('sasaran_kerja')->label('Sasaran')->limit(50),
+                Tables\Columns\TextColumn::make('sasaran yang diintervensi')
+                ->formatStateUsing(
+                    function(Matriks $record){
+                        return $record->sasaranAtasan->sasaran_kerja;
+                    }
+                )
             ])
             ->filters([
                 // Filter::make('user')
