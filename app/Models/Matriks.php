@@ -32,7 +32,7 @@ class Matriks extends Model
     // }
 
     public function sasaranAtasan(){
-        return $this->belongsTo(Matriks::class, 'sasaranAtasan_id' );
+        return $this->belongsTo(Matriks::class, 'sasaranAtasan_id');
         // ->using(Matriks::class)
         // ->withPivot('sasaranAtasan_id');
     }

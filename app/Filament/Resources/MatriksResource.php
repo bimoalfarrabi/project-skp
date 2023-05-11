@@ -89,7 +89,7 @@ class MatriksResource extends Resource
                 Tables\Columns\TextColumn::make('sasaran yang diintervensi')
                 ->formatStateUsing(
                     function(Matriks $record){
-                        return $record->sasaranAtasan->sasaran_kerja;
+                        return $record->sasaranAtasan->sasaran_kerja ?? 'Tidak ada sasaran yang diintervensi';
                     }
                 )
             ])

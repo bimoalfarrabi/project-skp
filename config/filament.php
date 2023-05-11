@@ -142,9 +142,8 @@ return [
         'path' => app_path('Filament/Widgets'),
         'register' => [
             Widgets\AccountWidget::class,
-            // Widgets\SkpOverview::class,
-            Widgets\FilamentInfoWidget::class,
-            Widgets\StatsOverviewWidget::class,
+            // Widgets\FilamentInfoWidget::class,
+            // Widgets\StatsOverviewWidget::class,
         ],
     ],
 
