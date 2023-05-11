@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EvaluasiPegawaiResource\Pages;
 use App\Filament\Resources\EvaluasiPegawaiResource\RelationManagers;
 use App\Models\EvaluasiPegawai;
+use App\Models\HasilKerja;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -27,23 +28,16 @@ class EvaluasiPegawaiResource extends Resource
     {
         return $form
             ->schema([
-                // Card::make()
-                // ->schema([
-                //     // ...
-                //     Forms\Components\Repeater::make('Bukti Dukung')->schema([
-                //         Forms\Components\FileUpload::make('name'),
-                //     ]),
-                // ]),
+
                 Forms\Components\FileUpload::make('Bukti dukung')
-                ->multiple()
-                ->storeFileNamesIn('attachment_file_names'),
+                ->multiple(),
                 Forms\Components\TextInput::make('umpan balik')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('matriks_id')
-                    ->required(),
-                Forms\Components\TextInput::make('matriks_id')
-                    ->required(),
+                ->required()
+                ->maxLength(255),
+                Forms\Components\Select::make('hasil')
+                ->label('Ekspetasi')
+                ->options(HasilKerja::all()->pluck('hasil', 'id'))
+                ->searchable(),
             ]);
     }
 

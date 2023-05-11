@@ -75,6 +75,11 @@ class User extends Authenticatable implements FilamentUser
     public function matriks(){
         return $this->hasMany(Matriks::class);
     }
+    public function buktiDukung(){
+        return $this->hasMany(BuktiDukung::class);
+    }
+
+
     public function pegawai(){
         return $this->belongsTo(Pegawai::class);
     }

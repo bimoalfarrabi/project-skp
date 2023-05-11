@@ -36,6 +36,10 @@ class Matriks extends Model
         // ->using(Matriks::class)
         // ->withPivot('sasaranAtasan_id');
     }
+
+    public function buktiDukung(){
+        return $this->hasMany(BuktiDukung::class);
+    }
     // public function intervensi(){
     //     return $this->hasMany(Matriks::class)
     //     ->using(Matriks::class)

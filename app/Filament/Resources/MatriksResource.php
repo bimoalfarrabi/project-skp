@@ -102,6 +102,7 @@ class MatriksResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -122,6 +123,7 @@ class MatriksResource extends Resource
             'index' => Pages\ListMatriks::route('/'),
             'create' => Pages\CreateMatriks::route('/create'),
             'edit' => Pages\EditMatriks::route('/{record}/edit'),
+            
         ];
     }    
 
