@@ -10,7 +10,7 @@ use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-
+use Illuminate\Contracts\View\View;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -21,6 +21,8 @@ class BuktiDukungResource extends Resource
     protected static ?string $model = BuktiDukung::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationLabel = 'Bukti Dukung';
+    protected static ?string $title = 'Custom Page Title';
 
     public static function form(Form $form): Form
     {
@@ -32,10 +34,10 @@ class BuktiDukungResource extends Resource
                 ->searchable(),
 
                 Forms\Components\FileUpload::make('nama_file')
+                ->columns(1)
                 ->multiple()
-                ->acceptedFileTypes(['application/pdf'])
-                ->maxSize(1024)
-                ->enableDownload()
+                ->directory('file_sasaran')
+                ->storeFileNamesIn('original_filename')
             ]);
     }
 
@@ -77,6 +79,11 @@ class BuktiDukungResource extends Resource
             'edit' => Pages\EditBuktiDukung::route('/{record}/edit'),
         ];
     }    
+
+    protected function getHeader(): View
+{
+    return view('filament.settings.custom-header');
+}
 
 
 }

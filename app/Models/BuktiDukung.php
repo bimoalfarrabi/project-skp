@@ -11,6 +11,7 @@ class BuktiDukung extends Model
 
     protected $casts = [
         'nama_file' => 'array',
+        'original_filename' => 'array'
     ];
     protected $table = 'bukti_dukung';
     protected $with = ['matriks'];

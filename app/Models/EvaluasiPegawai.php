@@ -11,6 +11,8 @@ class EvaluasiPegawai extends Model
 
     protected $table = 'evaluasi_pegawai';
     protected $guarded = 'id';
+    protected $with = 'hasilKerja';
+
     public function hasilKerja(){
         return $this->belongsTo(HasilKerja::class);
     }

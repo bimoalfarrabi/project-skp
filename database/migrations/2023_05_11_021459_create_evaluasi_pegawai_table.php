@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('evaluasi_pegawai', function (Blueprint $table) {
             $table->id();
-            $table->string('bukti dukung')->nullable();
-            $table->string('umpan balik');
+            $table->string('umpan_balik');
             $table->foreignId('hasil_kerja_id');
             $table->timestamps();
         });

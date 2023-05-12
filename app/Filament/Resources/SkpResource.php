@@ -2,27 +2,27 @@
 
 namespace App\Filament\Resources;
 
+// use App\Filament\Resources\SkpResource\Pages;
 use App\Filament\Resources\EvaluasiPegawaiResource\Pages;
-use App\Filament\Resources\EvaluasiPegawaiResource\RelationManagers;
+use App\Filament\Resources\SkpResource\RelationManagers;
 use App\Models\EvaluasiPegawai;
 use App\Models\HasilKerja;
+use App\Models\Skp;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Forms\Components\Card;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class EvaluasiPegawaiResource extends Resource
+class SkpResource extends Resource
 {
     protected static ?string $model = EvaluasiPegawai::class;
+    // protected static ?string $title = 'test';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $navigationLabel = 'Evaluasi Pegawai';
-    protected static ?string $navigationGroup = 'Sasaran Kinerja';
- 
+    protected static ?string $navigationLabel = 'Penilaian Pegawai';
 
     public static function form(Form $form): Form
     {
@@ -42,14 +42,17 @@ class EvaluasiPegawaiResource extends Resource
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('bukti dukung'),
-                Tables\Columns\TextColumn::make('umpan balik'),
-                // Tables\Columns\TextColumn::make('matriks_id'),
+                Tables\Columns\TextColumn::make('periode_id'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -67,6 +70,9 @@ class EvaluasiPegawaiResource extends Resource
     public static function getPages(): array
     {
         return [
+            // 'create' => Pages\CreateSkp::route('/create'),
+            // 'view' => Pages\ViewSkp::route('/{record}'),
+            // 'edit' => Pages\EditSkp::route('/{record}/edit'),
             'index' => Pages\ListEvaluasiPegawais::route('/'),
             'create' => Pages\CreateEvaluasiPegawai::route('/create'),
             'edit' => Pages\EditEvaluasiPegawai::route('/{record}/edit'),
