@@ -6,6 +6,8 @@ use App\Filament\Resources\EvaluasiPegawaiResource\Pages;
 use App\Filament\Resources\EvaluasiPegawaiResource\RelationManagers;
 use App\Models\EvaluasiPegawai;
 use App\Models\HasilKerja;
+use App\Models\Matriks;
+use Doctrine\DBAL\Schema\View;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -18,9 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class EvaluasiPegawaiResource extends Resource
 {
     protected static ?string $model = EvaluasiPegawai::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $navigationLabel = 'Evaluasi Pegawai';
+    protected static ?string $navigationLabel = 'Penilaian Pegawai';
     protected static ?string $navigationGroup = 'Sasaran Kinerja';
  
 
@@ -28,12 +29,16 @@ class EvaluasiPegawaiResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('matriks_id')
+                ->label('sasaran kerja')
+                ->options(Matriks::where('user_id', auth()->id())->get()->pluck('sasaran_kerja', 'id'))
+                ->searchable(),
                 Forms\Components\TextInput::make('umpan_balik')
                 ->required()
                 ->maxLength(255),
                 Forms\Components\Select::make('hasil_kerja_id')
                 ->label('Ekspetasi')
-                ->options(HasilKerja::all()->pluck('hasil', 'id'))
+                ->options(HasilKerja::all()->pluck('hasil','id'))
                 ->searchable(),
             ]);
     }
@@ -43,8 +48,13 @@ class EvaluasiPegawaiResource extends Resource
         return $table
             ->columns([
                 // Tables\Columns\TextColumn::make('bukti dukung'),
-                Tables\Columns\TextColumn::make('umpan balik'),
-                // Tables\Columns\TextColumn::make('matriks_id'),
+                Tables\Columns\TextColumn::make('Hasil Kerja')
+                ->formatStateUsing(
+                    function(EvaluasiPegawai $record){
+                        return $record->matriks->sasaran_kerja;
+                    }
+                ),
+                Tables\Columns\TextColumn::make('umpan_balik'),
             ])
             ->filters([
                 //
@@ -68,8 +78,9 @@ class EvaluasiPegawaiResource extends Resource
     {
         return [
             'index' => Pages\ListEvaluasiPegawais::route('/'),
+            'detail' => Pages\RealisasiView::route('/{record}/detail'),
             'create' => Pages\CreateEvaluasiPegawai::route('/create'),
             'edit' => Pages\EditEvaluasiPegawai::route('/{record}/edit'),
         ];
-    }    
+    }
 }

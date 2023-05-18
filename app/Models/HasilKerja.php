@@ -10,6 +10,7 @@ class HasilKerja extends Model
     use HasFactory;
     protected $table = 'hasil_kerja';
     protected $guarded = ['id'];
+    
     public function evaluasiPegawai(){
         return $this->hasMany(EvaluasiPegawai::class);
     }

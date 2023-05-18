@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sasaran;
 use App\Models\Indikator;
+use App\Models\EvaluasiPegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -94,6 +95,9 @@ class SasaranController extends Controller
         return redirect()->route('indikatorView', $id);
     }
 
-
+    public function display($record){
+        $realisasi = EvaluasiPegawai::find($record);
+        return view('filament.resources.evaluasi-pegawai-resource.pages.realisasi-view', compact('realisasi'));
+    }
 
 }

@@ -20,4 +20,8 @@ class BuktiDukung extends Model
     public function matriks(){
         return $this->belongsTo(Matriks::class);
     }
+
+    // public function evaluasiPegawai(){
+    //     return $this
+    // }
 }

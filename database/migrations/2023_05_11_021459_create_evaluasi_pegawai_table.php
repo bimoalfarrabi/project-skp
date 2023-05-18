@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('evaluasi_pegawai', function (Blueprint $table) {
             $table->id();
             $table->string('umpan_balik');
+            $table->foreignId('matriks_id');
             $table->foreignId('hasil_kerja_id');
             $table->timestamps();
         });

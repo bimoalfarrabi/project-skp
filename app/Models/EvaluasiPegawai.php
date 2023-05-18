@@ -10,8 +10,12 @@ class EvaluasiPegawai extends Model
     use HasFactory;
 
     protected $table = 'evaluasi_pegawai';
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
     protected $with = 'hasilKerja';
+
+    public function matriks(){
+        return $this->belongsTo(Matriks::class);
+    }
 
     public function hasilKerja(){
         return $this->belongsTo(HasilKerja::class);

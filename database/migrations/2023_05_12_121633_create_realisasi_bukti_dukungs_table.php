@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matriks', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('realisasi_bukti_dukung', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id');
-            $table->integer('atasan_id')->nullable();
-            $table->integer('sasaranAtasan_id')->nullable();
-            $table->text('sasaran_kerja');
+            $table->foreignId('matriks_id');
+            $table->text('realisasi');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('matriks');
+        Schema::dropIfExists('realisasi_bukti_dukungs');
     }
 };
