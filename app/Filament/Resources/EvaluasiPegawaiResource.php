@@ -33,9 +33,11 @@ class EvaluasiPegawaiResource extends Resource
                 ->label('sasaran kerja')
                 ->options(Matriks::where('user_id', auth()->id())->get()->pluck('sasaran_kerja', 'id'))
                 ->searchable(),
+
                 Forms\Components\TextInput::make('umpan_balik')
                 ->required()
                 ->maxLength(255),
+                
                 Forms\Components\Select::make('hasil_kerja_id')
                 ->label('Ekspetasi')
                 ->options(HasilKerja::all()->pluck('hasil','id'))

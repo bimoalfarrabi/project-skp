@@ -13,4 +13,8 @@ class Pegawai extends Model
     public function user(){
         return $this->hasOne(User::class);
     }
+
+    public function bawahan(){
+        return $this->hasMany(Pegawai::class, 'bawahan_id');
+    }
 }
