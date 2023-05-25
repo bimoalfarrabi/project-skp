@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
@@ -103,6 +104,9 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export'),
             ]);
     }
     
