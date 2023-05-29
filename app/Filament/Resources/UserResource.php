@@ -106,7 +106,13 @@ class UserResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ])
             ->headerActions([
-                FilamentExportHeaderAction::make('export'),
+                FilamentExportHeaderAction::make('export')
+                ->defaultFormat('pdf') //default format is PDF
+                ->defaultPageOrientation('landscape')
+                ->disableFilterColumns()
+                ->fileName('Dokumen SKP')
+                ->disableAdditionalColumns()
+                ->disableFileNamePrefix()
             ]);
     }
     
