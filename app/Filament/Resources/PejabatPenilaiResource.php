@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PejabatPenilaiResource\Pages;
 use App\Filament\Resources\PejabatPenilaiResource\RelationManagers;
 use App\Models\Pegawai;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PejabatPenilaiResource extends Resource
 {
-    protected static ?string $model = Pegawai::class;
+    protected static ?string $model = User::class;
     protected static ?string $navigationLabel = 'Pejabat Penilai';
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $navigationGroup = 'Admin Management';
